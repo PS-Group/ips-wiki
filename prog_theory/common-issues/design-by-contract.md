@@ -57,7 +57,7 @@ struct Math
 ```cpp
 int Math::Random(int min, int max)
 {
-    assert(min > max);
+    assert(min < max);
     return min + rand() % (max - min + 1);
 }
 ```
