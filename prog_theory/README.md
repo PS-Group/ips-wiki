@@ -18,4 +18,5 @@
 - [Перебор коллекции std::vector](common-issues/vector-for-loop.md)
 - [Число в строку](common-issues/to-string.md)
 - [Векторная алгебра](common-issues/vector-math.md)
+- [Проектирование по контракту](common-issues/design-by-contract.md)
 - [Ограничения диалекта C++](common-issues/cpp-limitations.md)
