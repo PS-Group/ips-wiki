@@ -1,4 +1,4 @@
-## Векторная алгебра
+## Векторная алгебра в SFML
 В [sf::Vector2f](http://www.sfml-dev.org/documentation/2.0/classsf_1_1Vector2.php) и sf::Vector2i удобно хранить двумерные физические величины
 - положение, расстояние или перемещение (т.е. точку или вектор перемещения)
 - скорость (вместе с направлением движения)
@@ -86,4 +86,5 @@ sf::Vector2f Math::Cartesian(float radius, float angle)
 
 ### Читать далее
 - [контракты функций](design-by-contract.md)
-- о перегрузке функций: http://www.cplusplus.com/doc/tutorial/functions2/
+- [линейная алгебра для программистов](http://habrahabr.ru/post/131931/)
+- [механизм перегрузки функций](http://www.cplusplus.com/doc/tutorial/functions2/)
