@@ -86,5 +86,5 @@ sf::Vector2f Math::Cartesian(float radius, float angle)
 
 ### Читать далее
 - [контракты функций](design-by-contract.md)
-- [линейная алгебра для программистов](http://habrahabr.ru/post/131931/)
-- [механизм перегрузки функций](http://www.cplusplus.com/doc/tutorial/functions2/)
+- [линейная алгебра для программистов (habrahabr.ru)](http://habrahabr.ru/post/131931/)
+- [механизм перегрузки функций (cplusplus.com)](http://www.cplusplus.com/doc/tutorial/functions2/)
