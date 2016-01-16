@@ -2,7 +2,7 @@
 
 ### Число в строку
 
-Для склеивания строки из нескольких элементов, включающих подстроки и числа, есть оператор '+' и удобный метод 'std::string', именно они представляют современные методы:
+Для склеивания строки из нескольких элементов, включающих подстроки и числа, есть оператор '+' и удобный метод 'std::to_string', именно они представляют современные методы:
 ```cpp
 void DisplayStats(Player &player, sf::RenderWindow &window, sf::Font fontMain)
 {
@@ -38,5 +38,69 @@ void DisplayStats(Player &player, sf::RenderWindow &window, sf::Font fontMain)
     sprintf(suffix, " got %d points.", player.getPoints());
     sf::Text text(name + suffix, fontMain);
     window.draw(text);
+}
+```
+
+### Строку в число
+
+Один из самых удобных вариантов сканирования - функция sscanf.
+```cpp
+namespace {
+int parseInt(std::string const& text)
+{
+     int result = 0;
+     sscanf(text.c_str(), "%d", &result);
+     return result;
+}
+
+float parseFloat(std::string const& text)
+{
+    float result = 0;
+    sscanf(text.c_str(), "%f", &result);
+    return result;
+}
+
+double parseDouble(std::string const& text)
+{
+    double result = 0;
+    sscanf(text.c_str(), "%lf", &result);
+    return result;
+}
+}
+```
+
+Обратите внимание, что сканировать строку небезопасно &mdash; можно получить переполнение буфера. Чтобы переполнения не происходило, следует указывать максимальное число символов (на 1 меньше размера буфера)
+```cpp
+void security_hole(std::string const& text)
+{
+    char result[20];
+    sscanf(text.c_str(), "%s", result);
+}
+
+void security_ok(std::string const& text)
+{
+    char result[20];
+    sscanf(text.c_str(), "%19s", result);
+}
+```
+
+С помощью sscanf можно разобрать, например, дату в формате "31-12-2014". Для этого придётся проверять число, возвращённое функцией sscanf, потому что sscanf возвращает число реально считанных переменных.
+```cpp
+struct Date
+{
+    int year = 0;
+    int month = 0;
+    int day = 0;
+};
+
+bool parseDate(std::string const& text, Date &date)
+{
+    Date temp;
+    if (3 == sscanf(text.c_str(), "%d-%d-%d", &temp.day, &temp.month, &temp.year))
+    {
+        date = temp;
+        return true;
+    }
+    return false;
 }
 ```
