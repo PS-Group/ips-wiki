@@ -43,7 +43,29 @@ void DisplayStats(Player &player, sf::RenderWindow &window, sf::Font fontMain)
 
 ### Строку в число
 
-Один из самых удобных вариантов сканирования - функция sscanf.
+Простейший способ &mdash; std::stoi, std::stol, std::stoll
+```cpp
+#include <string>
+
+std::wstring ws = L"456";
+int i = std::stoi(ws); // convert to int
+std::wstring ws2 = std::to_wstring(i); // and back to wstring
+```
+
+Следует помнить, что std::stoi может бросить два разных исключения
+
+```cpp
+#include <string>
+
+std::string versionValid = L"1.456";
+std::string versionInvalid = L".456";
+std::string versionOutOfRange = L"45645254125.412";
+int versionMajor = std::stoi(versionValid); // ok
+int versionMajor2 = std::stoi(versionInvalid); // throws 'std::invalid_argument'
+int versionMajor3 = std::stoi(versionOutOfRange); // throws 'std::out_of_range'
+```
+
+Более гибкий вариант сканирования - функция sscanf.
 ```cpp
 namespace {
 int parseInt(std::string const& text)
