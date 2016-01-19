@@ -126,3 +126,6 @@ bool parseDate(std::string const& text, Date &date)
     return false;
 }
 ```
+
+### Читать далее
+- [документация на cppreference.com](http://en.cppreference.com/w/cpp/string/basic_string/stol)
