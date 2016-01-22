@@ -20,10 +20,10 @@ public:
   virtual void Draw(sf::Window *window);
 };
 
-void DrawAll(std::vector<UiComponent> &components, sf::Window &window)
+void DrawAll(std::vector<std::shared_ptr<UiComponent>> &components, sf::Window &window)
 {
-  for (UiComponent &x : components)
-    x.Draw(window);
+  for (auto &pComponent : components)
+    pComponent.Draw(window);
 }
 ```
 
@@ -54,10 +54,10 @@ public:
   void Draw(sf::Window *window) override;
 };
 
-void DrawAll(std::vector<UiComponent> &components, sf::Window &window)
+void DrawAll(std::vector<std::shared_ptr<UiComponent>> &components, sf::Window &window)
 {
-  for (UiComponent &x : components)
-    x.Draw(window);
+  for (auto &pComponent : components)
+    pComponent->Draw(window);
 }
 ```
 
