@@ -23,7 +23,7 @@ public:
 void DrawAll(std::vector<std::shared_ptr<UiComponent>> &components, sf::Window &window)
 {
   for (auto &pComponent : components)
-    pComponent.Draw(window);
+    pComponent->Draw(window);
 }
 ```
 
