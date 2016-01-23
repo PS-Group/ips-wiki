@@ -22,7 +22,7 @@
 Чтобы разбирать выражение, нам придётся пробегать строку слева направо, и, возможно, делать это в нескольких случаях. Способы реализации:
 - хранить в паре ```std::string text, size_t position```, для получения очередного символа использовать ```text[position]```, для сдвига вправо использовать ```++position``` и сравнение ```position``` с ```text.size()```
 - использовать класс boost::string_ref, делающий то же самое
-- использовать класс из стандарта C++ 2017 &mdash; [std::string_view](http://en.cppreference.com/w/cpp/experimental/basic_string_view)
+- использовать класс из стандарта C++ 2017 &mdash; [boost::string_ref](http://en.cppreference.com/w/cpp/experimental/basic_string_view)
 
 В примере остановимся на ```boost::string_ref```. Вот так будет выглядеть функция для разброра чисел вида "124", "15", "012".
 
@@ -71,18 +71,26 @@ int main()
 ```cpp
 float parseExprSum(boost::string_ref &ref)
 {
-    float left = parseFloat(ref);
-    if (!ref.empty() && ref[0] == '+')
-    {
-        ref.remove_prefix(1);
-        return left + parseExprSum(ref);
-    }
-    if (!ref.empty() && ref[0] == '-')
-    {
-        ref.remove_prefix(1);
-        return left - parseExprSum(ref);
-    }
-    return left;
+	float value = parseFloat(ref);
+	while (true)
+	{
+		if (!ref.empty() && ref[0] == '+')
+		{
+			ref.remove_prefix(1);
+			value += parseFloat(ref);
+		}
+		else if (!ref.empty() && ref[0] == '-')
+		{
+			ref.remove_prefix(1);
+			value -= parseFloat(ref);
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return value;
 }
 
 
@@ -97,39 +105,7 @@ int main()
 
 ### Возврат NaN при ошибке
 
-Для получения NaN в STL есть [std::numeric_limits<float>::quiet_NaN()](http://en.cppreference.com/w/cpp/types/numeric_limits/quiet_NaN).
-Изменим функцию ```parseExprSum```:
-```cpp
-float parseExprSum(boost::string_ref &ref)
-{
-    // [...]
-    return left;
-}
-
-/// transform to...
-
-float parseExprSum(boost::string_ref &ref)
-{
-    // [...]
-    if (!ref.empty())
-    {
-        return std::numeric_limits<float>::quiet_NaN();
-    }
-    return left;
-}
-
-// checking result...
-
-int main()
-{
-    std::string expr = "1254+46-1200!";
-    boost::string_ref ref(expr);
-    cout << parseExprSum(ref) << endl;
-    return 0;
-}
-```
-
-Функция ```parseFloat``` должна проверять, что она хоть что-то распарсила. Для этого введём локальную переменную ```parsedAny```:
+Для получения NaN в STL есть [std::numeric_limits<float>::quiet_NaN()](http://en.cppreference.com/w/cpp/types/numeric_limits/quiet_NaN). Для проверки наличия ошибки функция ```parseFloat``` должна проверять, что она хоть что-то распарсила. Для этого введём локальную переменную ```parsedAny```:
 
 ```cpp
 float parseFloat(boost::string_ref &ref)
@@ -165,7 +141,6 @@ void skipSpaces(boost::string_ref &ref)
     ref.remove_prefix(i);
 }
 
-
 float parseFloat(boost::string_ref &ref)
 {
     skipSpaces(ref);
@@ -175,8 +150,10 @@ float parseFloat(boost::string_ref &ref)
 
 float parseExprSum(boost::string_ref &ref)
 {
-    float left = parseFloat(ref);
-    skipSpaces(ref);
+	float value = parseFloat(ref);
+	while (true)
+	{
+		skipSpaces(ref);
     // [...]
 }
 
@@ -189,6 +166,88 @@ int main()
     return 0;
 }
 ```
+
+### Обработка умножения и деления
+
+Для обработки двух новых операций мы можем вставить посредника между parseExprSum и parseFloat. Посредник вставляется между ними, так как приоритет у операций умножения/деления выше.
+- в parseExprSum заменяем вызовы parseFloat на parseExprMul
+- функцию parseExprMul пишем аналогично функции parseExprSum
+
+```cpp
+float Calculator::parseExprMul(boost::string_ref &ref)
+{
+	float value = parseFloat(ref);
+	while (true)
+	{
+		skipSpaces(ref);
+		if (!ref.empty() && ref[0] == '*')
+		{
+			ref.remove_prefix(1);
+			value *= parseFloat(ref);
+		}
+		else if (!ref.empty() && ref[0] == '/')
+		{
+			ref.remove_prefix(1);
+			value /= parseFloat(ref);
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return value;
+}
+```
+
+### Обработка точки в parseFloat
+Чтобы поддерживать разбор чисел вида ```1.24```, мы можем добавить второй, слегка изменённый, цикл разбора в parseFloat:
+```cpp
+float Calculator::parseFloat(boost::string_ref &ref)
+{
+	// [...]
+	if (!parsedAny)
+	{
+		return std::numeric_limits<float>::quiet_NaN();
+	}
+	if (ref.empty() || (ref[0] != '.'))
+	{
+		return value;
+	}
+	ref.remove_prefix(1);
+	float factor = 1.f;
+	while (!ref.empty() && std::isdigit(ref[0]))
+	{
+		const int digit = ref[0] - '0';
+		factor *= 0.1f;
+		value += factor * float(digit);
+		ref.remove_prefix(1);
+	}
+
+	return value;
+}
+```
+
+### Прячем реализацию
+
+Чтобы скрыть детали реализации калькулятора, мы можем создать класс (или структуру) Calculator согласно идиоме [Хранилище Функций](../../prog_theory/common-issues/vector-math.md). Новый класс должен иметь минимальный интерфейс, с документацией в виде комментариев. Пример:
+```cpp
+struct Calculator
+{
+	Calculator() = delete;
+
+	// parses expressions like "7 / 2 + 12 - 3 * 4 + 17 - 2 * 7"
+	// calculates and returns result.
+	static float parseExpr(boost::string_ref &ref);
+
+private:
+	static float parseFloat(boost::string_ref &ref);
+	static float parseExprMul(boost::string_ref &ref);
+	static float parseExprSum(boost::string_ref &ref);
+	static void skipSpaces(boost::string_ref &ref);
+};
+```
+
 
 ### Читать далее
 
