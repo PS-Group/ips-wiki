@@ -119,7 +119,7 @@ float parseExprSum(boost::string_ref &ref)
 
 // checking result...
 
-int main(int /*argc*/, char */*argv*/[])
+int main()
 {
     std::string expr = "1254+46-1200!";
     boost::string_ref ref(expr);
