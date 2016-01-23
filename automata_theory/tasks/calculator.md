@@ -127,3 +127,26 @@ int main(int /*argc*/, char */*argv*/[])
     return 0;
 }
 ```
+
+Функция ```parseFloat``` должна проверять, что она хоть что-то распарсила. Для этого введём локальную переменную ```parsedAny```:
+
+```cpp
+float parseFloat(boost::string_ref &ref)
+{
+    float value = 0;
+    bool parsedAny = false;
+    while (!ref.empty() && std::isdigit(ref[0]))
+    {
+        parsedAny = true;
+        const int digit = ref[0] - '0';
+        value = value * 10.0f + float(digit);
+        ref.remove_prefix(1);
+    }
+    if (!parsedAny)
+    {
+        return std::numeric_limits<float>::quiet_NaN();
+    }
+
+    return value;
+}
+```
