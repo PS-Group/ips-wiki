@@ -1,5 +1,13 @@
 ## Задание: калькулятор
 
+Требования:
+- модуль калькулятора получает на вход строку и вычисляет её как выражение.
+- на выходе &mdash; число типа ```double```.
+- разбор выражений вида ```12445 + 125-5195 + 12``` с учётом пробелов
+- учёт приоритетов операторов: ```9*0 + 124*125```
+- поддержка чисел с плавающей точкой: ```12.512 + 0.125 + 2.125 + 9.1```
+- для некорректных выражений возвращается ```NaN```
+
 ### Пример простого калькулятора
 
 На вход подаются выражения в виде строки. Калькулятор вычисляет и выводит значение выражения. Требования, которые мы выполним в примере:
@@ -80,6 +88,40 @@ float parseExprSum(boost::string_ref &ref)
 int main()
 {
     std::string expr = "1254+46-1200";
+    boost::string_ref ref(expr);
+    cout << parseExprSum(ref) << endl;
+    return 0;
+}
+```
+
+### Возврат NaN при ошибке
+
+Для получения NaN в STL есть [std::numeric_limits<float>::quiet_NaN()](http://en.cppreference.com/w/cpp/types/numeric_limits/quiet_NaN).
+Изменим функцию ```parseExprSum```:
+```cpp
+float parseExprSum(boost::string_ref &ref)
+{
+    // [...]
+    return left;
+}
+
+/// transform to...
+
+float parseExprSum(boost::string_ref &ref)
+{
+    // [...]
+    if (!ref.empty())
+    {
+        return std::numeric_limits<float>::quiet_NaN();
+    }
+    return left;
+}
+
+// checking result...
+
+int main(int /*argc*/, char */*argv*/[])
+{
+    std::string expr = "1254+46-1200!";
     boost::string_ref ref(expr);
     cout << parseExprSum(ref) << endl;
     return 0;
