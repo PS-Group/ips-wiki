@@ -150,3 +150,41 @@ float parseFloat(boost::string_ref &ref)
     return value;
 }
 ```
+
+### Пропуск пробелов
+
+Для пропуска пробелов напишем функцию skipSpaces, воспользуемся функцией [std::isspace](http://en.cppreference.com/w/cpp/string/byte/isspace):
+
+```cpp
+void skipSpaces(boost::string_ref &ref)
+{
+    size_t i = 0;
+    while (i < ref.size() && std::isspace(ref[i]))
+        ++i;
+    ref.remove_prefix(i);
+}
+
+
+float parseFloat(boost::string_ref &ref)
+{
+    skipSpaces(ref);
+    float value = 0;
+    // [...]
+}
+
+float parseExprSum(boost::string_ref &ref)
+{
+    float left = parseFloat(ref);
+    skipSpaces(ref);
+    // [...]
+}
+
+
+int main()
+{
+    std::string expr = "1254 + 46 - 1200";
+    boost::string_ref ref(expr);
+    cout << parseExprSum(ref) << endl;
+    return 0;
+}
+```
