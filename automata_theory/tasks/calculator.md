@@ -22,7 +22,7 @@
 Чтобы разбирать выражение, нам придётся пробегать строку слева направо, и, возможно, делать это повторно в разных функциях. Способы реализации:
 - хранить в паре ```std::string text, size_t position```, для получения очередного символа использовать ```text[position]```, для сдвига вправо использовать ```++position``` и сравнение ```position``` с ```text.size()```
 - использовать класс boost::string_ref, делающий то же самое
-- использовать класс из стандарта C++ 2017 &mdash; [boost::string_ref](http://en.cppreference.com/w/cpp/experimental/basic_string_view)
+- использовать класс из стандарта C++ 2017 &mdash; [std::string_view](http://en.cppreference.com/w/cpp/experimental/basic_string_view)
 
 В примере остановимся на ```boost::string_ref```. Вот так будет выглядеть функция для разброра чисел вида "124", "15", "012".
 
