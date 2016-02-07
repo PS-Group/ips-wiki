@@ -119,3 +119,4 @@ void foo()
 ### Читать далее
 - Стив Макконнелл, "Совершенный Код" ("Code Complete")
 - [видео доклада Андрея Карпова на C++ Russia 2015](https://www.youtube.com/watch?v=fqmk67ivDTU&index=9&list=PLrs_DcVZNww22J_uDSJn7bLNOlly7n8p2)
+- [C++ Crash Course for C programmers](http://www.labri.fr/perso/nrougier/teaching/c++-crash-course/)
