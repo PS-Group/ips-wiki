@@ -120,14 +120,14 @@ void multiply()
 
 void substract()
 {
-    check_underflow(2);
+    check_underflow(1);
     g_stackVM[g_stackVMTop - 1] = g_stackVM[g_stackVMTop - 1] - g_stackVM[g_stackVMTop];
     --g_stackVMTop;
 }
 
 void divide()
 {
-    check_underflow(2);
+    check_underflow(1);
     g_stackVM[g_stackVMTop - 1] = g_stackVM[g_stackVMTop - 1] / g_stackVM[g_stackVMTop];
     --g_stackVMTop;
 }
