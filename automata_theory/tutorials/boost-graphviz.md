@@ -13,6 +13,7 @@
 Для Windows потребуется:
 
 - установить Graphviz из MSI-пакета: http://www.graphviz.org/Download_windows.php
+- добавить в системную переменную PATH путь к Graphviz (см. поддиректорию `Graphviz2.38\bin` внутри `Program Files`)
 - собрать Boost для Visual Studio 2013 или 2015
 - в сборке boost могут помочь [эта статья](http://dev.mindillusion.ru/boost/) и [этот вопрос (stackoverflow.com)](http://stackoverflow.com/questions/31566807/how-to-build-boost-version-1-58-0-using-visual-studio-2015-enterprise)
 
