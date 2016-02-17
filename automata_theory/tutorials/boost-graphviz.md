@@ -57,42 +57,41 @@ dp.property("label", get(edge_weight, graph));
 #define _SCL_SECURE_NO_WARNINGS
 ```
 
-В качестве рёбер графа будет выступать `std::pair<int, int>` под псевдонимом `Edge`. В целом, библиотека boost.graph работает с разными видами рёбер благодаря реализации на шаблонах.
-
-Мы также укажем массив весов для каждой вершины, даже если в каких-то форматах вывода Graphviz веса не отображаются.
+- В качестве рёбер графа будет выступать `std::pair<int, int>` под псевдонимом `Edge`. В целом, библиотека boost.graph работает с разными видами рёбер благодаря реализации на шаблонах.
+- Мы также укажем отдельно массив весов для каждой вершины
+- Для хранения как списка вершин, так и списка рёбер (переходов) у каждой вершины мы используем `std::vector`. Для этого первым и вторым параметрами шаблона `boost::adjacency_list` указан `boost::vecS`. 
 
 ## Листинг функции
 ```cpp
 void makeSimpleDot()
 {
-    using Edge = std::pair<int, int>;
-    using namespace boost;
-    using Graph = adjacency_list< vecS, vecS, directedS,
-      property< vertex_color_t, default_color_type >,
-      property< edge_weight_t, double >
-      >;
+	using Edge = std::pair<int, int>;
+	using Graph = boost::adjacency_list< boost::vecS, boost::vecS, boost::directedS,
+		boost::property< boost::vertex_color_t, boost::default_color_type >,
+		boost::property< boost::edge_weight_t, double >
+	>;
 
-    const int VERTEX_COUNT = 15;
-    std::vector<Edge> edges = {
-        {0, 4}, {0, 6}, {0, 1}, {1, 6}, {1, 11},
-        {2, 6}, {2, 9}, {2, 11}, {3, 4}, {4, 5},
-        {5, 8}, {6, 7}, {7, 8}, {8, 13},
-        {9, 10}, {10, 13}, {11, 12}, {12, 13}, {13, 14},
-    };
-    std::vector<double> weights(edges.size());
-    std::fill(weights.begin(), weights.end(), 1.0);
-    weights[1] = 0.5;
-    weights[2] = 2.5;
-    weights[3] = 4.3;
+	const int VERTEX_COUNT = 15;
+	std::vector<Edge> edges = {
+		{ 0, 4 },{ 0, 6 },{ 0, 1 },{ 1, 6 },{ 1, 11 },
+		{ 2, 6 },{ 2, 9 },{ 2, 11 },{ 3, 4 },{ 4, 5 },
+		{ 5, 8 },{ 6, 7 },{ 7, 8 },{ 8, 13 },
+		{ 9, 10 },{ 10, 13 },{ 11, 12 },{ 12, 13 },{ 13, 14 },
+	};
+	std::vector<double> weights(edges.size());
+	std::fill(weights.begin(), weights.end(), 1.0);
+	weights[1] = 0.5;
+	weights[2] = 2.5;
+	weights[3] = 4.3;
 
-    Graph graph(edges.begin(), edges.end(), weights.begin(), VERTEX_COUNT);
+	Graph graph(edges.begin(), edges.end(), weights.begin(), VERTEX_COUNT);
 
-    dynamic_properties dp;
-    dp.property("weight", get(edge_weight, graph));
-    dp.property("label", get(edge_weight, graph));
-    dp.property("node_id", get(vertex_index, graph));
-    std::ofstream ofs( "test.dot" );
-    write_graphviz_dp(ofs, graph, dp);
+	boost::dynamic_properties dp;
+	dp.property("weight", boost::get(boost::edge_weight, graph));
+	dp.property("label", boost::get(boost::edge_weight, graph));
+	dp.property("node_id", boost::get(boost::vertex_index, graph));
+	std::ofstream ofs("test.dot");
+	boost::write_graphviz_dp(ofs, graph, dp);
 }
 ```
 
