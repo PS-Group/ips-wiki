@@ -158,3 +158,8 @@ dot -Tpng -odia.png test.dot
 - [пример с ручной настройкой графа (stackoverflow.com)](stackoverflow.com/questions/29312444/how-to-write-graphviz-subgraphs-with-boostwrite-graphviz)
 - [примёр со структурами Vertex и Edge (stackoverflow.com)](http://stackoverflow.com/questions/9181183/how-to-print-a-boost-graph-in-graphviz-with-one-of-the-properties-displayed)
 - [примёр со структурами DotVertex и DotEdge (stackoverflow.com)](http://stackoverflow.com/questions/29898195/boostread-graphviz-how-to-read-out-properties)
+
+Документация по boost.graph:
+- [quick tour (boost.org)](http://www.boost.org/doc/libs/1_46_1/libs/graph/doc/quick_tour.html)
+- [разные примеры применения (ibm.com)](http://www.ibm.com/developerworks/aix/library/au-aix-boost-graph/)
+- [полная документация](http://www.boost.org/doc/libs/1_58_0/libs/graph/doc/table_of_contents.html)
