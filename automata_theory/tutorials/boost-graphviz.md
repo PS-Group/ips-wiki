@@ -155,7 +155,7 @@ dot -Tpng -odia.png test.dot
 
 Примеры применения обобщённой библиотеки boost.graph:
 
-- [пример с ручной настройкой графа (stackoverflow.com)](stackoverflow.com/questions/29312444/how-to-write-graphviz-subgraphs-with-boostwrite-graphviz)
+- [пример с ручной настройкой графа (stackoverflow.com)](http://stackoverflow.com/questions/29312444/how-to-write-graphviz-subgraphs-with-boostwrite-graphviz)
 - [примёр со структурами Vertex и Edge (stackoverflow.com)](http://stackoverflow.com/questions/9181183/how-to-print-a-boost-graph-in-graphviz-with-one-of-the-properties-displayed)
 - [примёр со структурами DotVertex и DotEdge (stackoverflow.com)](http://stackoverflow.com/questions/29898195/boostread-graphviz-how-to-read-out-properties)
 
