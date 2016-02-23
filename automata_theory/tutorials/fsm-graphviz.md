@@ -345,6 +345,7 @@ std::unique_ptr<IFsmTable> ReadFsmTable(std::istream & input)
 	table->Read(input);
 	return table;
 }
+```
 
 Теперь можно дополнить функцию main, чтобы читать автомат Мура из `input.txt`, писать Graphviz-код в `fsm.dot`, а потом запускать `dot` процесс для получения `fsm.png`. При наличии установленного и добавленного в переменную PATH пакета Graphviz вы получите диаграмму автомата в формате PNG.
 
