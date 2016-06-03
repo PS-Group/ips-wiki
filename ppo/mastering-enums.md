@@ -114,7 +114,7 @@ enum class PlayerOnlyState
 
 При использовании `std::map`, следует предпочитать `std::map<int, cocos2d::RefPtr<cocos2d::Animation>>`, а не `std::map<UnitState, cocos2d::RefPtr<cocos2d::Animation>>`
 
-## Неявное приведение enum
+## Неявное приведение scoped enum к int
 
 Можно получить практически аналог `enum class`, но с возможностью неявного приведения к int:
 ```cpp
