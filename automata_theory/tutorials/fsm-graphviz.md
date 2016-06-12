@@ -90,7 +90,7 @@ public:
 	{
 		if (m_pipe)
 		{
-			_pclose(m_pipe);
+			pclose(m_pipe);
 		}
 	}
 
