@@ -393,9 +393,13 @@ bool ShouldTrackKeyPressed(const SDL_Keysym &key)
 }
 ```
 
-Также введём вспомогательные константы и функции, позволяющие получить скорость поворота и скорость приближения (возможно, нулевые или отрицательные) на основе информации о нажатых клавишах:
+Также подключим заголовок с функциями вращения вектора, введём вспомогательные константы и функции, позволяющие получить скорость поворота и скорость приближения (возможно, нулевые или отрицательные) на основе информации о нажатых клавишах:
 
 ```cpp
+#include <glm/gtx/rotate_vector.hpp>
+
+namespace
+{
 const float ROTATION_SPEED_RADIANS = 1.f;
 const float LINEAR_MOVE_SPEED = 5.f;
 const float MIN_DISTANCE = 1.5f;
@@ -426,6 +430,7 @@ float GetLinearMoveSpeed(std::set<unsigned> & keysPressed)
     }
     return 0;
 }
+} // anonymous namespace
 ```
 
 После этого с небольшим применением линейной алгебры мы можем реализовать методы класса CCamera:

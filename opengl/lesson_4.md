@@ -1,7 +1,5 @@
 # Тригонометрия и цветы
 
-[TOC]
-
 В данном уроке мы научимся рисовать цветы с помощью тригонометрии и линейной алгебры, а также добавим к цветам возможность перетаскивания в окне.
 
 ## Дисплейные списки
@@ -118,6 +116,13 @@ void CFlower::Redraw() const
     }
 
     glEnd();
+}
+
+float CFlower::GetRadiusByAngle(float angle)const
+{
+    // вычисляем радиус искривленной окружности для данного угла.
+    return 0.5f * (m_maxRadius - m_minRadius)
+            * cosf(angle * m_petalCount) + m_minRadius;
 }
 ```
 

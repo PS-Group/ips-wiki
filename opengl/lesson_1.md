@@ -147,7 +147,7 @@ void ShowWindow(glm::vec2 const& size)
 #include <SDL2/SDL_events.h>
     
 class CAbstractWindow : private boost::noncopyable
-{s
+{
 public:
     CAbstractWindow();
     virtual ~CAbstractWindow();
