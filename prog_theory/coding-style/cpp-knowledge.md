@@ -9,15 +9,18 @@
 
 C/C++ полностью поддерживают императивный подход к программированию. Чтобы свободно им пользоваться, надо
 
-- помнить про [фундаментальные типы данных](http://en.cppreference.com/w/cpp/language/types), включая void, булеву алгебру, целые числа (и особенности их дискретного представления), числа с плавающей точкой (и особенности их дискретного представления), тип char
+- помнить про [фундаментальные типы данных](http://en.cppreference.com/w/cpp/language/types), включая void, целые числа (и особенности их дискретного представления), числа с плавающей точкой (и особенности их дискретного представления), тип char
+- уметь пользоваться булевой алгеброй (реализованной в языке для типа bool), помнить о [преобразованиях Де-Моргана](https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BA%D0%BE%D0%BD%D1%8B_%D0%B4%D0%B5_%D0%9C%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B0), о [Short-Curcuit Evaluation](https://en.wikipedia.org/wiki/Short-circuit_evaluation), о том, как int и float неявно преобразуются в bool
 - помнить про [неявный приоритет операторов](http://en.cppreference.com/w/cpp/language/operator_precedence), коммутативность и ассоциативность ряда операторов для примитивных типов
 
 ## Структурный стиль
 
+Необходимо:
+
 - помнить про выражение с тернарным оператором `condition ? then_value : else_value`, которое в некоторых случаях может служить заменой `if..else`
 - помнить про [инструкцию switch](http://en.cppreference.com/w/cpp/language/switch), которая в некоторых случаях может служить заменой `if..else`
 - помнить про все три формы циклов: `while`, `do..while` и `for`, уметь раскладывать одну инструкцию for на три инструкции (одна из которых &mdash; while), а также собирать инструкцию for из while
-- помнить про назначение инструкций [continue](http://en.cppreference.com/w/cpp/language/continue) и [break](http://en.cppreference.com/w/cpp/language/break) в циклах
+- помнить про назначение инструкций [continue](http://en.cppreference.com/w/cpp/language/continue) и [break](http://en.cppreference.com/w/cpp/language/break) в циклах, уметь изменять код, заменяя `break` на дополнительную булеву переменную или убирая булеву переменную в пользу `break`.
 
 ## Процедурный стиль
 
