@@ -115,16 +115,16 @@ struct Picture
     sf::Texture *pTexture = nullptr;
 };
 
-void InitPicture(Picture &picture, std::string const& path);
+void initPicture(Picture &picture, std::string const& path);
 
 void foo()
 {
     Picture banner;
-    InitPicture(banner, "images/ad_banner.png");
+    initPicture(banner, "images/ad_banner.png");
 }
 ```
 
-### Читать далее
+### Дополнительные материалы
 - Стив Макконнелл, "Совершенный Код" ("Code Complete")
 - [видео доклада "Цена ошибки" на C++ Russia 2015](https://www.youtube.com/watch?v=fqmk67ivDTU&index=9&list=PLrs_DcVZNww22J_uDSJn7bLNOlly7n8p2)
 - [C++ Crash Course for C programmers](http://www.labri.fr/perso/nrougier/teaching/c++-crash-course/)
