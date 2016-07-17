@@ -18,11 +18,26 @@
 
 ## Статьи об SDL2, OpenGL, OpenAL
 
+#### Технические основы
+
+- [именование функций и синонимы примитивных типов в OpenGL (en.wikibooks.org)](https://en.wikibooks.org/wiki/OpenGL_Programming/Basics/NamingConventions)
+
 #### Изображения и текстурирование
 
 - [растеризация текста в текстуру с помощью TrueType шрифта и SDL_ttf 2 (willusher.io)](http://www.willusher.io/sdl2%20tutorials/2013/12/18/lesson-6-true-type-fonts-with-sdl_ttf)
+- [текстурирование сферы с применением GLSL (en.wikibooks.org)](https://en.wikibooks.org/wiki/GLSL_Programming/GLUT/Textured_Spheres)
+
+#### Эффекты с GLSL
+
+- [эффект глубины резкости, Depth of Field (en.wikibooks.org)](https://en.wikibooks.org/wiki/OpenGL_Programming/Depth_of_Field)
+- [размытие при движении, Motion Blur (en.wikibooks.org)](https://en.wikibooks.org/wiki/OpenGL_Programming/Motion_Blur)
+- 
 
 ## Книги
+
+#### Викикнига "OpenGL Programming"
+
+- [индексная страница (en.wikibooks.org)](https://en.wikibooks.org/wiki/OpenGL_Programming)
 
 #### Френсис Хилл, "OpenGL. Программирование компьютерной графики."
 
