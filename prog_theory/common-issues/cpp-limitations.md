@@ -54,11 +54,11 @@ if (a != 0 && myfunc(b))
 - не пишите шаблонные структуры и классы
 - избегайте статей в Интернете, предлагающих metaprogramming и compile-time в C++
 - шаблонные функции вполне просты и допустимы
-- можно использовать шаблонные классы STL, такие как ```std::string``` и ```std::vector```
+- можно использовать шаблонные классы STL, такие как ```std::string```, ```std::vector``` и так далее
 
 Хорошие шаблоны из STL:
 - шаблонные функции из &lt;algorithm&gt;: ```std::max, std::any_of, std::count, std::remove_if```
-- шаблонные классы из STL: ```std::string, std::vector, std::map, std::set, std::array, std::unordered_map```
+- шаблонные контейнеры из STL: ```std::string, std::vector, std::map, std::set, std::array, std::unordered_map```
 
 ### Избегайте многопоточных вычислений
 - доказать корректность многопоточной программы гораздо сложнее
